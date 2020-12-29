@@ -1,7 +1,7 @@
 package com.example.Projet4A.data.repository
 
 import android.arch.lifecycle.LiveData
-import com.example.Projet4A.data.db.model.Movie
+import com.example.Projet4A.data.local.model.Movie
 
 interface MoviesRepository {
 

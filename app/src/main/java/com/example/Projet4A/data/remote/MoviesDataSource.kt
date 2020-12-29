@@ -1,7 +1,7 @@
-package com.example.Projet4A.data.api
+package com.example.Projet4A.data.remote
 
 import android.arch.lifecycle.LiveData
-import com.example.Projet4A.data.db.model.Movie
+import com.example.Projet4A.data.local.model.Movie
 
 interface MoviesDataSource {
     val showingMovies: LiveData<List<Movie>>

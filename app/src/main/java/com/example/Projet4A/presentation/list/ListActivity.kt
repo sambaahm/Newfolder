@@ -1,4 +1,4 @@
-package com.example.Projet4A.ui.list
+package com.example.Projet4A.presentation.list
 
 import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.example.Projet4A.R
-import com.example.Projet4A.data.db.model.Movie
+import com.example.Projet4A.data.local.model.Movie
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

@@ -1,8 +1,8 @@
-package com.example.Projet4A.data.db.dao
+package com.example.Projet4A.data.local
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
-import com.example.Projet4A.data.db.model.Movie
+import com.example.Projet4A.data.local.model.Movie
 
 @Dao
 interface MoviesDao {

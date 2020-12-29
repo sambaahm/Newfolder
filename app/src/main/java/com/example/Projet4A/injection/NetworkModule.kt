@@ -1,8 +1,8 @@
-package com.example.Projet4A.di
+package com.example.Projet4A.injection
 
-import com.example.Projet4A.data.api.*
-import com.example.Projet4A.data.api.iterceptors.ConnectivityInterceptor
-import com.example.Projet4A.data.api.iterceptors.ConnectivityInterceptorImpl
+import com.example.Projet4A.data.remote.*
+import com.example.Projet4A.data.remote.iterceptors.ConnectivityInterceptor
+import com.example.Projet4A.data.remote.iterceptors.ConnectivityInterceptorImpl
 import org.koin.dsl.module.module
 
 val NetworkModule = module {

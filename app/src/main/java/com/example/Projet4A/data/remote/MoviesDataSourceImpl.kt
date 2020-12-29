@@ -1,8 +1,8 @@
-package com.example.Projet4A.data.api
+package com.example.Projet4A.data.remote
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import com.example.Projet4A.data.db.model.Movie
+import com.example.Projet4A.data.local.model.Movie
 import java.lang.Exception
 
 class MoviesDataSourceImpl(private val movieApi: MovieApi) : MoviesDataSource {

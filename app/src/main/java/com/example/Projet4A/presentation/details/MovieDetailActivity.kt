@@ -1,4 +1,4 @@
-package com.example.Projet4A.ui.details
+package com.example.Projet4A.presentation.details
 
 import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
@@ -9,7 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import com.bumptech.glide.Glide
 import com.example.Projet4A.R
-import com.example.Projet4A.data.db.model.Movie
+import com.example.Projet4A.data.local.model.Movie
 import com.example.Projet4A.util.Constants
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.coroutines.*

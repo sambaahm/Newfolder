@@ -1,4 +1,4 @@
-package com.example.Projet4A.data.db.model
+package com.example.Projet4A.data.local.model
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey

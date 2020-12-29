@@ -1,12 +1,11 @@
-package com.example.Projet4A.data.db
+package com.example.Projet4A.data.local
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
-import com.example.Projet4A.data.db.dao.MoviesDao
-import com.example.Projet4A.data.db.model.Movie
+import com.example.Projet4A.data.local.model.Movie
 import com.example.Projet4A.util.ListTypeConverter
 
 @Database(

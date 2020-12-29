@@ -1,4 +1,4 @@
-package com.example.Projet4A.ui.list
+package com.example.Projet4A.presentation.list
 
 import android.arch.lifecycle.ViewModel
 import com.example.Projet4A.data.repository.MoviesRepository

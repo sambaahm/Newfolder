@@ -1,9 +1,9 @@
-package com.example.Projet4A.data.api
+package com.example.Projet4A.data.remote
 
 import com.example.Projet4A.BuildConfig
-import com.example.Projet4A.data.api.iterceptors.ConnectivityInterceptor
-import com.example.Projet4A.data.api.responses.MovieListResponse
-import com.example.Projet4A.data.db.model.Movie
+import com.example.Projet4A.data.remote.iterceptors.ConnectivityInterceptor
+import com.example.Projet4A.data.remote.responses.MovieListResponse
+import com.example.Projet4A.data.local.model.Movie
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor

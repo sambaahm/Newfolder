@@ -1,4 +1,4 @@
-package com.example.Projet4A.data.api.iterceptors
+package com.example.Projet4A.data.remote.iterceptors
 
 import okhttp3.Interceptor
 

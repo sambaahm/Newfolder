@@ -1,7 +1,6 @@
-package com.example.Projet4A
+package com.example.Projet4A.injection
 
 import android.app.Application
-import com.example.Projet4A.di.*
 import org.koin.android.ext.android.startKoin
 
 class App: Application() {

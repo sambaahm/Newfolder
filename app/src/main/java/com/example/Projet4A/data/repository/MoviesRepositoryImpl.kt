@@ -3,10 +3,10 @@ package com.example.Projet4A.data.repository
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 
-import com.example.Projet4A.data.api.MoviesDataSource
-import com.example.Projet4A.data.db.model.Movie
-import com.example.Projet4A.data.db.dao.MoviesDao
-import com.example.Projet4A.App
+import com.example.Projet4A.data.remote.MoviesDataSource
+import com.example.Projet4A.data.local.model.Movie
+import com.example.Projet4A.data.local.MoviesDao
+import com.example.Projet4A.injection.App
 import com.example.Projet4A.util.SingleLiveEvent
 
 import kotlinx.coroutines.*
