@@ -1,0 +1,116 @@
+package com.example.Projet4A.data.repository
+
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+
+import com.example.Projet4A.data.api.MoviesDataSource
+import com.example.Projet4A.data.db.model.Movie
+import com.example.Projet4A.data.db.dao.MoviesDao
+import com.example.Projet4A.App
+import com.example.Projet4A.util.SingleLiveEvent
+
+import kotlinx.coroutines.*
+
+
+
+
+
+class MoviesRepositoryImpl(private val moviesDao: MoviesDao, private val moviesDataSource: MoviesDataSource) :
+    MoviesRepository {
+
+    private var similarMoviesLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
+    private var _error = SingleLiveEvent<String>()
+
+    init {
+        moviesDataSource.apply {
+            showingMovies.observeForever {
+                it.let { movies ->
+                    App.hasFetched = true
+                    saveMoviesToLocalDatabase(movies!!)
+                }
+            }
+            movieDetail.observeForever {
+                saveMovieDetailToLocalDatabase(it!!)
+            }
+            similarMovies.observeForever {
+                similarMoviesLiveData.value = it
+            }
+            error.observeForever {
+               _error.value = it ?: "Network Error"
+            }
+
+        }
+    }
+
+    override val error: LiveData<String>
+        get() = _error
+
+    //Calling database
+    override suspend fun getShowingMovies(): LiveData<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            if (!App.hasFetched) {
+                fetchMoviesfromDataSource()
+            }
+            return@withContext moviesDao.getShowingMovies()
+        }
+    }
+
+    override suspend fun getMovieDetail(movieId: String): LiveData<Movie> {
+        return withContext(Dispatchers.IO) {
+            return@withContext moviesDao.getMovieDetail(movieId)
+        }
+    }
+
+    override suspend fun getSimilarMovies(movieId: String): LiveData<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            fetchSimilarMoviesFromDataSource(movieId)
+            return@withContext similarMoviesLiveData
+        }
+    }
+
+    private fun saveMoviesToLocalDatabase(movies: List<Movie>) {
+        if (movies.isNotEmpty()) {
+            GlobalScope.launch(Dispatchers.IO) {
+                movies.forEach {
+                    it.addedTime = System.nanoTime()
+                }
+                moviesDao.insertMovieList(movies)
+            }
+        }
+    }
+
+    private fun saveMovieDetailToLocalDatabase(movie: Movie) {
+        GlobalScope.launch(Dispatchers.IO) {
+            moviesDao.addMovieDetail(movie)
+        }
+    }
+
+    //Calling Apis
+    override fun fetchFullMovieDetails(movieId: String, addedTime: Long) {
+        GlobalScope.launch {
+            fetchMovieDetailfromDataSource(movieId, addedTime)
+        }
+    }
+
+
+    private suspend fun fetchMoviesfromDataSource() {
+        moviesDataSource.getShowingMovies( 1)
+    }
+
+    override fun fetchMoreShowingMoviesFromDataSource(page: Int) {
+        GlobalScope.launch {
+            moviesDataSource.getShowingMovies(page)
+        }
+    }
+
+    suspend fun fetchMovieDetailfromDataSource(movieId: String, addedTime: Long) {
+        moviesDataSource.getMovieDetail(movieId, addedTime)
+    }
+
+    private suspend fun fetchSimilarMoviesFromDataSource(movieId: String) {
+        moviesDataSource.getSimilarMovies(movieId)
+    }
+
+
+
+}
