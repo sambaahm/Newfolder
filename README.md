@@ -14,7 +14,7 @@ l'application "SAMBA's CINE" devrait avoir trois activities:
 - Language Kotlin
 - Architecture MVVM
 - Clean Architecture
-- Utilisation d’une réelle BDD (ROOM)
+- Utilisation d’une réelle BDD (ROOM pour les movies)
 - Utilisation Api REST
 - Affichage d’une liste
 - Design
@@ -27,3 +27,5 @@ l'application "SAMBA's CINE" devrait avoir trois activities:
   <img src="https://github.com/sambaahm/Projet_4A_TC43/blob/master/screen4A/Screenshot_20201230-224353_samba%20cine.jpg" width="150" >
   <img src="https://github.com/sambaahm/Projet_4A_TC43/blob/master/screen4A/Screenshot_20201230-224415_samba%20cine.jpg" width="150" >
 </p>
+
+PS: L'application commited sur le GitHub ne se lance pas directement car j'ai eu des erreurs que je n'ai pas reussi à résoudre pour passer de login au API REST. Il faut commenter les fichiers concernant le login et modifier l'Android manifeste (et vice-versa pour l'api Rest) pour avoir le résultat présent dans les screens 
