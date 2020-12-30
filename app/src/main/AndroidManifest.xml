@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.Projet4A">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.example.Projet4A">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+
             android:name="com.example.Projet4A.injection.App"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -12,15 +14,19 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.example.Projet4A.presentation.list.ListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
+        <activity android:name="com.example.Projet4A.presentation.main.LoginActivity">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
-        <activity android:name="com.example.Projet4A.presentation.details.MovieDetailActivity">
-        </activity>
+        <activity android:name=".presentation.list.ListActivity" />
+        <activity android:name=".presentation.details.MovieDetailActivity" />
     </application>
 
 </manifest>
+

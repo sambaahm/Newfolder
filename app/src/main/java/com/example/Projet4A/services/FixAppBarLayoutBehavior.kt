@@ -1,11 +1,12 @@
-package com.example.Projet4A.util
+package com.example.Projet4A.services
 
 import android.content.Context
-import android.support.v4.view.ViewCompat
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CoordinatorLayout
+
 import android.util.AttributeSet
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
+import com.google.android.material.appbar.AppBarLayout
 
 
 class FixAppBarLayoutBehavior : AppBarLayout.Behavior {

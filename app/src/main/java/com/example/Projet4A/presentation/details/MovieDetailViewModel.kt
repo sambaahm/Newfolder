@@ -1,10 +1,13 @@
 package com.example.Projet4A.presentation.details
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.example.Projet4A.data.repository.MoviesRepository
-import com.example.Projet4A.data.local.model.Movie
-import com.example.Projet4A.util.lazyDeferred
+
+import com.example.Projet4A.data.local.models.Movie
+import com.example.Projet4A.services.lazyDeferred
+
 
 class MovieDetailViewModel(private val moviesRepository: MoviesRepository): ViewModel() {
     private lateinit var movieId: String

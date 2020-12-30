@@ -1,16 +1,13 @@
 package com.example.Projet4A.presentation.details
 
-import android.arch.lifecycle.Observer
-import android.support.v7.app.AppCompatActivity
+import com.example.Projet4A.data.local.models.Movie
+import com.example.Projet4A.services.Constants
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.Projet4A.R
-import com.example.Projet4A.data.local.model.Movie
-import com.example.Projet4A.util.Constants
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.coroutines.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -20,7 +17,7 @@ import kotlin.coroutines.CoroutineContext
 
 class MovieDetailActivity : AppCompatActivity(), CoroutineScope {
     companion object {
-       val currency = NumberFormat.getCurrencyInstance(Locale("en", "US"))!!
+        val currency = NumberFormat.getCurrencyInstance(Locale("en", "US"))!!
     }
     private val movieDetailViewModel: MovieDetailViewModel by viewModel()
     private lateinit var movieId: String
@@ -69,23 +66,23 @@ class MovieDetailActivity : AppCompatActivity(), CoroutineScope {
 
     private fun loadMovieDetails() {
         movieDetailViewModel.setCurrentMovieData(movieId, addedTime)
-            launch {
-                movieDetailViewModel.getMovieDetail(movieId).observe(this@MovieDetailActivity, Observer {
-                    bindMovieToUi(it)
-                })
+        launch {
+            movieDetailViewModel.getMovieDetail(movieId).observe(this@MovieDetailActivity, Observer {
+                bindMovieToUi(it)
+            })
 
-                val movies = movieDetailViewModel.similarMovies.await()
-                observer =  Observer { t ->
-                    similarMovies.clear()
-                    t?.forEach {movie ->
-                        if (movie.id.toString() != movieId) {
-                            similarMovies.add(movie)
-                        }
+            val movies = movieDetailViewModel.similarMovies.await()
+            observer =  Observer { t ->
+                similarMovies.clear()
+                t?.forEach {movie ->
+                    if (movie.id.toString() != movieId) {
+                        similarMovies.add(movie)
                     }
-                    similarMoviesAdapter.notifyDataSetChanged()
-                    movies?.removeObserver(observer)
                 }
-                movies?.observe(this@MovieDetailActivity, observer)
+                similarMoviesAdapter.notifyDataSetChanged()
+                movies?.removeObserver(observer)
+            }
+            movies?.observe(this@MovieDetailActivity, observer)
         }
     }
 
@@ -117,7 +114,7 @@ class MovieDetailActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun listenForErrors() {
-       val observer =  Observer<String> {
+        val observer =  Observer<String> {
             Snackbar.make(main_wrapper, it!!, Snackbar.LENGTH_LONG).show()
         }
         movieDetailViewModel.error.observe(this, observer)

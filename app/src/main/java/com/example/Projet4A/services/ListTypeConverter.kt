@@ -1,6 +1,7 @@
-package com.example.Projet4A.util
+package com.example.Projet4A.services
 
-import android.arch.persistence.room.TypeConverter
+
+import androidx.room.TypeConverter
 
 
 class ListTypeConverter {

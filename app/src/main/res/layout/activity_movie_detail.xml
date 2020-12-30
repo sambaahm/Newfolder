@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="500dp"
             android:fitsSystemWindows="true"
-            app:layout_behavior="com.example.Projet4A.util.FixAppBarLayoutBehavior"
+            app:layout_behavior="com.example.Projet4A.services.FixAppBarLayoutBehavior"
             android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout

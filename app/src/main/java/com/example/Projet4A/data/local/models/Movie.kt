@@ -1,7 +1,8 @@
-package com.example.Projet4A.data.local.model
+package com.example.Projet4A.data.local.models
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "movies_table")

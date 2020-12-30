@@ -1,116 +1,78 @@
 package com.example.Projet4A.data.repository
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 
+
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.Projet4A.data.local.models.Movie
+import com.example.Projet4A.data.remote.MovieApi
 import com.example.Projet4A.data.remote.MoviesDataSource
-import com.example.Projet4A.data.local.model.Movie
-import com.example.Projet4A.data.local.MoviesDao
-import com.example.Projet4A.injection.App
-import com.example.Projet4A.util.SingleLiveEvent
 
-import kotlinx.coroutines.*
+import java.lang.Exception
 
+class MoviesDataSourceImpl(private val movieApi: MovieApi) : MoviesDataSource {
 
+    private val _similarMovies= MutableLiveData<List<Movie>>()
+    private val _movieDetail = MutableLiveData<Movie>()
+    private val _showingMovies = MutableLiveData<List<Movie>>()
+    private val _error = MutableLiveData<String>()
 
+    override val showingMovies: LiveData<List<Movie>>
+        get() = _showingMovies
 
+    override val movieDetail: LiveData<Movie>
+        get() =_movieDetail
 
-class MoviesRepositoryImpl(private val moviesDao: MoviesDao, private val moviesDataSource: MoviesDataSource) :
-    MoviesRepository {
-
-    private var similarMoviesLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
-    private var _error = SingleLiveEvent<String>()
-
-    init {
-        moviesDataSource.apply {
-            showingMovies.observeForever {
-                it.let { movies ->
-                    App.hasFetched = true
-                    saveMoviesToLocalDatabase(movies!!)
-                }
-            }
-            movieDetail.observeForever {
-                saveMovieDetailToLocalDatabase(it!!)
-            }
-            similarMovies.observeForever {
-                similarMoviesLiveData.value = it
-            }
-            error.observeForever {
-               _error.value = it ?: "Network Error"
-            }
-
-        }
-    }
+    override val similarMovies: LiveData<List<Movie>>
+        get() = _similarMovies
 
     override val error: LiveData<String>
         get() = _error
 
-    //Calling database
-    override suspend fun getShowingMovies(): LiveData<List<Movie>> {
-        return withContext(Dispatchers.IO) {
-            if (!App.hasFetched) {
-                fetchMoviesfromDataSource()
+    override suspend fun getMovieDetail(id: String, addedTime: Long) {
+        try {
+            var result = movieApi.getMovieDetail(id).await()
+            if (result.isSuccessful) {
+                result.body()?.addedTime = addedTime
+                _movieDetail.postValue(result.body())
+            } else {
+                _error.postValue("Failed to load movie details")
             }
-            return@withContext moviesDao.getShowingMovies()
+        } catch (e: Exception) {
+            _error.postValue("No internet connection")
         }
     }
 
-    override suspend fun getMovieDetail(movieId: String): LiveData<Movie> {
-        return withContext(Dispatchers.IO) {
-            return@withContext moviesDao.getMovieDetail(movieId)
+    override suspend fun getShowingMovies(page: Int) {
+        try {
+            var result = movieApi.getMovies(page).await()
+            if (result.isSuccessful && !result.body()?.movies.isNullOrEmpty()) {
+                _showingMovies.postValue(result.body()?.movies)
+            } else {
+                _error.postValue("No Movies Found")
+            }
+        } catch (e: Exception) {
+            _error.postValue("No internet connection")
         }
     }
 
-    override suspend fun getSimilarMovies(movieId: String): LiveData<List<Movie>> {
-        return withContext(Dispatchers.IO) {
-            fetchSimilarMoviesFromDataSource(movieId)
-            return@withContext similarMoviesLiveData
-        }
-    }
-
-    private fun saveMoviesToLocalDatabase(movies: List<Movie>) {
-        if (movies.isNotEmpty()) {
-            GlobalScope.launch(Dispatchers.IO) {
-                movies.forEach {
-                    it.addedTime = System.nanoTime()
+    override suspend fun getSimilarMovies(id: String) {
+        try {
+            var result = movieApi.getSimilarMovies(id).await()
+            if (result.isSuccessful) {
+                if (result.body()?.movies.isNullOrEmpty()) {
+                    _error.postValue("No similar movies found")
+                    _similarMovies.postValue(null)
+                } else {
+                    _similarMovies.postValue(result.body()?.movies)
                 }
-                moviesDao.insertMovieList(movies)
+            } else {
+                _error.postValue("No similar movies found")
             }
+        } catch (e: Exception) {
+            _error.postValue("No internet connection")
         }
     }
-
-    private fun saveMovieDetailToLocalDatabase(movie: Movie) {
-        GlobalScope.launch(Dispatchers.IO) {
-            moviesDao.addMovieDetail(movie)
-        }
-    }
-
-    //Calling Apis
-    override fun fetchFullMovieDetails(movieId: String, addedTime: Long) {
-        GlobalScope.launch {
-            fetchMovieDetailfromDataSource(movieId, addedTime)
-        }
-    }
-
-
-    private suspend fun fetchMoviesfromDataSource() {
-        moviesDataSource.getShowingMovies( 1)
-    }
-
-    override fun fetchMoreShowingMoviesFromDataSource(page: Int) {
-        GlobalScope.launch {
-            moviesDataSource.getShowingMovies(page)
-        }
-    }
-
-    suspend fun fetchMovieDetailfromDataSource(movieId: String, addedTime: Long) {
-        moviesDataSource.getMovieDetail(movieId, addedTime)
-    }
-
-    private suspend fun fetchSimilarMoviesFromDataSource(movieId: String) {
-        moviesDataSource.getSimilarMovies(movieId)
-    }
-
-
 
 }

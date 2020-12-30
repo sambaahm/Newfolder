@@ -1,5 +1,6 @@
 package com.example.Projet4A.data.remote.iterceptors
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import okhttp3.Interceptor
@@ -15,6 +16,7 @@ class ConnectivityInterceptorImpl(
         return chain.proceed(chain.request())
     }
 
+    @SuppressLint("MissingPermission")
     private fun isOnline(): Boolean {
         val connectivityManager = appContext.getSystemService(Context.CONNECTIVITY_SERVICE)
                 as ConnectivityManager

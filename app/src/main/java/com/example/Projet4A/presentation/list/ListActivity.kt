@@ -1,17 +1,19 @@
 package com.example.Projet4A.presentation.list
 
-import android.arch.lifecycle.Observer
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import com.example.Projet4A.R
-import com.example.Projet4A.data.local.model.Movie
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import android.support.design.widget.Snackbar
+
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.Projet4A.data.local.models.Movie
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -26,8 +28,8 @@ class ListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(bottom_App_bar)
-        bottom_app_bar_title.text = "Now Showing"
+        setSupportActionBar(bottom_App_bar as Toolbar?)
+        bottom_app_bar_title.text = "en ce moment"
 
         setupRecyclerView()
         loadData()

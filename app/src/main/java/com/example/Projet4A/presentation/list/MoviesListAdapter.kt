@@ -2,15 +2,17 @@ package com.example.Projet4A.presentation.list
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+
 import com.bumptech.glide.Glide
 import com.example.Projet4A.R
-import com.example.Projet4A.data.local.model.Movie
+import com.example.Projet4A.data.local.models.Movie
+import com.example.Projet4A.services.Constants
 import com.example.Projet4A.presentation.details.MovieDetailActivity
-import com.example.Projet4A.util.Constants
 import kotlinx.android.synthetic.main.row_movie_layout.view.*
 
 

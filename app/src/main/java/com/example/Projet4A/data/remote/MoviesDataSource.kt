@@ -1,7 +1,9 @@
 package com.example.Projet4A.data.remote
 
-import android.arch.lifecycle.LiveData
-import com.example.Projet4A.data.local.model.Movie
+
+
+import androidx.lifecycle.LiveData
+import com.example.Projet4A.data.local.models.Movie
 
 interface MoviesDataSource {
     val showingMovies: LiveData<List<Movie>>
