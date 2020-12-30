@@ -22,7 +22,7 @@ l'application "SAMBA's CINE" devrait avoir trois activities:
 ## Screenshots
 
 <p >
-  <img src=https://github.com/sambaahm/Projet_4A_TC43/blob/master/screen4A/Screenshot_20201230-224314_sambacine.jpg" width="150" >
+  <img src="https://github.com/sambaahm/Projet_4A_TC43/blob/master/screen4A/Screenshot_20201230-224314_sambacine.jpg" width="150" >
   <img src="https://github.com/sambaahm/Projet_4A_TC43/blob/master/screen4A/Screenshot_20201230-224325_samba%20cine.jpg" width="150" >
   <img src="https://github.com/sambaahm/Projet_4A_TC43/blob/master/screen4A/Screenshot_20201230-224353_samba%20cine.jpg" width="150" >
   <img src="https://github.com/sambaahm/Projet_4A_TC43/blob/master/screen4A/Screenshot_20201230-224415_samba%20cine.jpg" width="150" >
